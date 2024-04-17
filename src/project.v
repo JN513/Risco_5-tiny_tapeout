@@ -23,25 +23,12 @@ module tt_um_example (
 
 wire memory_read, memory_write;
 wire [2:0] option;
-wire [31:0] address, write_data, read_data,
+wire [31:0] address, write_data, read_data;
 
 
 wire memory_response, clk_o;
 
 assign memory_response = memory_read | memory_write;
-
-/*reg memory_response;
-
-initial begin
-    memory_response = 1'b0;
-end
-
-always @(negedge clk) begin
-    memory_response <= 1'b0;
-
-    if(memory_read || memory_write)
-        memory_response <= 1'b1;
-end*/
 
 assign clk_o = clk & ena;
 

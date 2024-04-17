@@ -17,15 +17,15 @@ project:
   source_files:        
     - "project.v"
     - "memory.v"
-    - "alu_control.v"
-    - "alu.v"
-    - "control_unit.v"
-    - "core.v"
-    - "csr_unit.v"
-    - "mux.v"
-    - "pc.v"
-    - "registers.v"
-    - "immediate_generator.v"
+    - "core/alu_control.v"
+    - "core/alu.v"
+    - "core/control_unit.v"
+    - "core/core.v"
+    - "core/csr_unit.v"
+    - "core/mux.v"
+    - "core/pc.v"
+    - "core/registers.v"
+    - "core/immediate_generator.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:

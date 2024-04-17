@@ -15,17 +15,17 @@ project:
   
   # List your project's source files here. Source files must be in ./src and you must list each source file separately, one per line:
   source_files:        
-    - "project.v"
     - "memory.v"
     - "core/alu_control.v"
     - "core/alu.v"
     - "core/control_unit.v"
-    - "core/core.v"
     - "core/csr_unit.v"
     - "core/mux.v"
     - "core/pc.v"
     - "core/registers.v"
     - "core/immediate_generator.v"
+    - "core/core.v"
+    - "project.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:

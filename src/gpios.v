@@ -13,8 +13,8 @@ module GPIOS #(
     output wire [7:0] direction
 );
 
-reg [WIDHT - 1:0] gpio_direction, gpio_value;
-wire [WIDHT -1:0] gpio_out;
+reg [7:0] gpio_direction, gpio_value;
+wire [7:0] gpio_out;
 
 assign direction = gpio_direction;
 
@@ -23,7 +23,7 @@ parameter READ = 1'b1;
 
 assign read_data = (read == 1'b1) ? gpio_out : 32'h00000000;
 
-GPIO Gpios[WIDHT - 1:0](
+GPIO Gpios[7:0](
     .gpio_in(gpios_in),
     .gpio_out(gpios_out),
     .direction(gpio_direction),
@@ -37,9 +37,9 @@ always @(posedge clk) begin
         gpio_value <= 32'h00000000;
     end else if(write) begin
         if(write_data[31] == SET_DIRECTION)
-            gpio_direction <= write_data[WIDHT - 1: 0];
+            gpio_direction <= write_data[7: 0];
         else
-            gpio_value <= write_data[WIDHT - 1: 0];
+            gpio_value <= write_data[7: 0];
     end
 end
     

@@ -54,7 +54,7 @@ assign read_data = (address[31] == 1'b1) ? gpio_read_data : memory_read_data;
 
 Memory #(
     //.MEMORY_FILE(1024),
-    .MEMORY_SIZE(1024)
+    .MEMORY_SIZE(128)
 ) Memory(
     .clk(clk_o),
     .reset(~rst_n),

@@ -21,14 +21,16 @@ module tt_um_Risco_5 (
   assign uio_out = 0;
   assign uio_oe  = 0;
 
-wire memory_read, memory_write;
+wire memory_read, memory_write, gpio_read, gpio_write,
+    read, write;
 wire [2:0] option;
-wire [31:0] address, write_data, read_data;
+wire [31:0] address, write_data, read_data, memory_read_data,
+    gpio_read_data;
 
 
 wire memory_response, clk_o;
 
-assign memory_response = memory_read | memory_write;
+assign memory_response = read | write;
 
 assign clk_o = clk & ena;
 
@@ -39,12 +41,18 @@ Core #(
     .reset(~rst_n),
     .option(option),
     .memory_response(memory_response),
-    .memory_read(memory_read),
-    .memory_write(memory_write),
+    .memory_read(read),
+    .memory_write(write),
     .write_data(write_data),
     .read_data(read_data),
     .address(address)
 );
+
+assign gpio_read = (address[31] == 1'b1) ? read : 1'b0;
+assign memory_read = (address[31] == 1'b0) ? read : 1'b0;
+assign gpio_write = (address[31] == 1'b1) ? write : 1'b0;
+assign memory_write = (address[31] == 1'b0) ? write : 1'b0;
+assign read_data = (address[31] == 1'b1) ? gpio_read_data : memory_read_data;
 
 Memory #(
     //.MEMORY_FILE(1024),
@@ -56,8 +64,23 @@ Memory #(
     .memory_read(memory_read),
     .memory_write(memory_write),
     .write_data(write_data),
-    .read_data(read_data),
+    .read_data(memory_read_data),
     .address(address)
+);
+
+GPIOS #(
+    .WIDHT(8)
+) GPIOS (
+    .clk(clk),
+    .reset(~rst_n),
+    .read(gpio_write),
+    .write(gpio_read),
+    .write_data(write_data),
+    .read_data(gpio_read_data),
+    .address(address),
+    .gpios_in(uio_in),
+    .gpios_out(uio_out),
+    .direction(uio_oe)
 );
 
 endmodule

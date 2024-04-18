@@ -10,7 +10,7 @@ module GPIOS #(
     output wire [31:0] read_data,
     input wire [7:0] gpios_in,
     output wire [7:0] gpios_out,
-    output wire direction
+    output wire [7:0] direction
 );
 
 reg [WIDHT - 1:0] gpio_direction, gpio_value;
